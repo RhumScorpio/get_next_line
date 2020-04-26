@@ -19,24 +19,52 @@ int	get_next_line(int fd, char **line)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, all.str, 0) == -1)
 		return (-1);
-	printf("1\n");
-	i = 0;
-	all.mark = 0;
-	while ((all.ret = read(fd, all.str, BUFFER_SIZE)) != -1)
-	{
-		while (i < BUFFER_SIZE && *(all.str + i) != '\n')
-		{
-			i++;
-		}
-		all.i = i;
-		printf("2\n");
-		*line = ft_strjoin(&all);
-		printf("2.5\n");
-		if (all.ret == 0 || all.i == BUFFER_SIZE + 1)
-			all.ret = read(fd, all.str, BUFFER_SIZE);
-		if (all.ret == 0)
-			return (0);
-		printf("3\n");
-	}
+	check_buffer();
+	all.boolean = 1;
+	gnl_read(fd, *all);
 	return (1);
+}
+
+int	gnl_read(int fd, t_all *all)
+{
+	int i;
+
+	i = 0;
+	if (all->boolean == 0)
+		return (0);
+	else
+	{
+		if ((all->ret = read(fd, all->buff, BUFFER_SIZE)) != -1)
+			return(-1);
+		while (i < BUFFER_SIZE && *(all->buff + i) != '\n')
+			i++;
+		if (i == BUFFER_SIZE)
+		{
+			filling_str(i, all);
+			gnl_read(fd, all);
+
+		}
+		else
+		{
+			filling_str(i, all);
+			all->boolean = 0;
+		}
+	}
+}
+
+void	filling_str(int index, t_all *all)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (all->str != '\0')
+	{
+		i++;
+	}
+	j = 0;
+	while (j < index)
+	{
+		
+	}
 }

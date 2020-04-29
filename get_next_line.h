@@ -22,16 +22,10 @@
 
 typedef	struct	s_all
 {
-	char buff[BUFFER_SIZE];
-	char str[1000];
-	int mark;
-	int ret;
-	int i;
-	int size;
+	char buff[BUFFER_SIZE + 1];
 	int boolean;
 }				t_all;
 
 int     get_next_line(int fd, char **line);
-char    *ft_strjoin(t_all *all);
 
 #endif

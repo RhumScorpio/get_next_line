@@ -12,26 +12,14 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
-{
-	int c;
-
-	c = 0;
-	while (*(str + c) != '\0')
-	{
-		c++;
-	}
-	return (c);
-}
-
-void	ft_putstr(const char *s)
+/*void	ft_putstr(const char *s)
 {
 	if (!s)
 		return ;
 	write(1, s, ft_strlen(s));
 }
 
-/*int main(int ac, char **av)
+int main(int ac, char **av)
   {
   ssize_t num;
 
@@ -47,6 +35,7 @@ void	ft_putstr(const char *s)
   char s[a];
 
   fd = open(av[1], O_RDONLY);
+  printf("FD --- %d\n", fd);
   if (fd == -1)
   {
   write(2, "open error\n", 11);
@@ -75,9 +64,13 @@ int main(int ac, char **av)
 		return (0);
 	printf("ok\n");
 	fd = open(av[1], O_RDONLY);
-	printf("ok2\n");
+	printf("fd is ok\n");
 	gnl = get_next_line(fd, &line);
-	printf("gnl = %d\nline --- %s", gnl, line);
+	printf("gnl = %d\nline --- %s\n", gnl, line);
 	free(line);
+	gnl = get_next_line(fd, &line);
+	printf("gnl = %d\nline --- %s\n", gnl, line);
+	free(line);
+	
 	return (0);
 }

@@ -23,7 +23,7 @@
 typedef	struct	s_all
 {
 	char buff[BUFFER_SIZE + 1];
-	int boolean;
+	char str[BUFFER_SIZE + 1];
 }				t_all;
 
 int     get_next_line(int fd, char **line);

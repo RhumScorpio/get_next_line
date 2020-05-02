@@ -66,11 +66,25 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	printf("fd is ok\n");
 	gnl = get_next_line(fd, &line);
-	printf("gnl = %d\nline --- %s\n", gnl, line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
 	free(line);
 	gnl = get_next_line(fd, &line);
-	printf("gnl = %d\nline --- %s\n", gnl, line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
 	free(line);
-	
+	gnl = get_next_line(fd, &line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
+	free(line);
+	gnl = get_next_line(fd, &line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
+	free(line);
+	gnl = get_next_line(fd, &line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
+	free(line);
+	gnl = get_next_line(fd, &line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
+	free(line);
+	gnl = get_next_line(fd, &line);
+	printf("FINAL_________gnl = %d\nFINAL____line --- %s\n", gnl, line);
+	free(line);
 	return (0);
 }

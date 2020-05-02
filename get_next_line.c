@@ -108,6 +108,7 @@ int	checkstr(int fd, t_all *all)
 			end++;
 		}
 		all->buff[end] = '\0';
+		all->str[0] = '\0';
 		return (1);
 	}
 	end = read(fd, all->buff, BUFFER_SIZE);
@@ -122,21 +123,15 @@ int	gnl_read(int fd, t_all *all, char **line)
 
 	i = 0;
 	*line = ft_strdup("");
-	all->str[0] = '\0';
 	while((checkstr(fd, all)) != -1)
 	{
-		printf("1oki\n");
-		printf("str -- %s\n", all->buff);
-                printf("2oki\n");
-		if (i = ft_strrchr(all->buff, '\n') >= 0)
+		if ((i = ft_strrchr(all->buff, '\n')) >= 0)
 		{
 			*line = ft_strnjoin(*line, all->buff, i);
 			filling_buff(all, i);
 			return (1);
 		}
-		printf("3oki\n");
 		*line = ft_strnjoin(*line, all->buff, ft_strlen(all->buff));
-		printf("line -- %s\n", *line);
 	}
 }
 

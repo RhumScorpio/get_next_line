@@ -12,25 +12,73 @@
 
 #include "get_next_line.h"
 
-char    *ft_strjoin(t_all *all)
+int	ft_strlen(const char *str)
 {
-        int                             i;
-        char                    *p;
+	int	c;
 
-        all->size += all->ret;
-	printf("A\n");
-        if (!(p = (char *)malloc((all->size + 1) * sizeof(*p))))
-                return (NULL);
-	printf("B\n");
-	i = 0;
-        while (all->mark < all->size)
+	c = 0;
+	while (*(str + c) != '\0')
 	{
-                p[all->mark] = all->str[i];
-		i++;
-		all->mark++;
+		c++;
 	}
-        p[i] = '\0';
-	printf("C\n");
-	printf("p --- %s\n", p);
-        return (p);
+	return (c);
 }
+
+char	*ft_strnjoin(const char *s1, const char *s2, int n)
+{
+	int		i;
+	int		j;
+	char		*p;
+	unsigned int	size;
+
+	if (!s1 || !s2)
+		return (NULL);
+	size = ft_strlen(s1) + n + 1;
+	if (!(p = (char *)malloc(size * sizeof(*p))))
+		return (NULL);
+	i = -1;
+	while (i++ < ft_strlen(s1))
+		p[i] = s1[i];
+	j = i - 1;
+	i = -1;
+	while (i++ < n)
+		p[j + i] = s2[i];
+	p[j + i + 1] = '\0';
+	return (p);
+}
+
+int		ft_strrchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*ft_strdup(char *src)
+{
+	int	len;
+	int	i;
+	char	*str;
+
+	len = 0;
+	i = 0;
+	while (*(src + len) != '\0')
+		++len;
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (0);
+	while (*(src + i) != '\0')
+	{
+		str[i] = src[i];
+		++i;
+	}
+	str[i] = '\0';
+	return (str);
+}
+

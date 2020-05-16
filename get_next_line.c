@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 16:47:39 by clesaffr          #+#    #+#             */
-/*   Updated: 2020/03/12 18:02:19 by clesaffr         ###   ########.fr       */
+/*   Updated: 2020/05/14 18:40:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	filling_buff(t_all *all, int index)
 	all->str[i] = '\0';
 }
 
-int	checkstr(int fd, t_all *all)
+int		checkstr(int fd, t_all *all)
 {
 	int	end;
 
@@ -46,15 +46,17 @@ int	checkstr(int fd, t_all *all)
 	return (end);
 }
 
-int	gnl_read(int fd, t_all *all, char **line)
+int		gnl_read(int fd, t_all *all, char **line)
 {
-	char	*str;
 	int	i;
+	int	end;
 
 	i = 0;
 	*line = ft_strdup("");
-	while((checkstr(fd, all)) != -1)
+	while ((end = checkstr(fd, all)) != -1)
 	{
+		if (all->buff[0] == '\0' && all->str[0] == '\0')
+			return (0);
 		if ((i = ft_strrchr(all->buff, '\n')) >= 0)
 		{
 			*line = ft_strnjoin(*line, all->buff, i);
@@ -63,14 +65,14 @@ int	gnl_read(int fd, t_all *all, char **line)
 		}
 		*line = ft_strnjoin(*line, all->buff, ft_strlen(all->buff));
 	}
+	return (-1);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	int		i;
 	static t_all	all;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, all.buff, 0) == -1)
 		return (-1);
-	return(gnl_read(fd, &all, &(*line)));
+	return (gnl_read(fd, &all, &(*line)));
 }

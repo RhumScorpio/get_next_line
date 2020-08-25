@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 16:15:10 by clesaffr          #+#    #+#             */
-/*   Updated: 2020/08/25 12:31:36 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/14 14:30:57 by claire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,19 @@ char	*ft_strnjoin(const char *s1, const char *s2, int n)
 	char			*p;
 	unsigned int	size;
 
-	if (!s1 && s2)
-		return (ft_strndup(s2, ft_strlen(s2)));
-	if (s1 && !s2)
-		return (ft_strndup(s1, ft_strlen(s1)));
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (NULL);
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	size = ft_strlen(s1) + n + 1;
 	if (!(p = (char *)malloc(size * sizeof(*p))))
 		return (NULL);
 	i = -1;
-	while (++i < ft_strlen(s1))
+	while (i++ < ft_strlen(s1))
 		p[i] = s1[i];
 	j = i - 1;
 	i = -1;
-	while (++i < n)
+	while (i++ < n)
 		p[j + i] = s2[i];
 	p[j + i + 1] = '\0';
-	free((char *)s1);
-	s1 = NULL;
 	return (p);
 }
 
@@ -67,19 +61,23 @@ int		ft_strrchr(const char *s, int c)
 	return (-1);
 }
 
-char	*ft_strndup(const char *src, int n)
+char	*ft_strdup(char *src)
 {
+	int		len;
 	int		i;
-	char	*tmp;
+	char	*str;
 
+	len = 0;
 	i = 0;
-	if (!(tmp = malloc(sizeof(char) * (n + 1))))
+	while (*(src + len) != '\0')
+		++len;
+	if (!(str = malloc(sizeof(char) * (len + 1))))
 		return (0);
-	while (*(src + i) != '\0' && i < n)
+	while (*(src + i) != '\0')
 	{
-		tmp[i] = src[i];
+		str[i] = src[i];
 		++i;
 	}
-	tmp[i] = '\0';
-	return (tmp);
+	str[i] = '\0';
+	return (str);
 }

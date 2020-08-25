@@ -6,66 +6,32 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 16:47:39 by clesaffr          #+#    #+#             */
-/*   Updated: 2020/05/14 18:40:16 by marvin           ###   ########.fr       */
+/*   Updated: 2020/08/25 12:27:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	filling_buff(t_all *all, int index)
-{
-	int	i;
-
-	i = 0;
-	while (i <= ft_strlen(all->buff))
-	{
-		all->str[i] = all->buff[index + 1 + i];
-		i++;
-	}
-	all->str[i] = '\0';
-}
-
-int		checkstr(int fd, t_all *all)
-{
-	int	end;
-
-	end = 0;
-	if (all->str[0] != '\0')
-	{
-		while (end <= ft_strlen(all->str))
-		{
-			all->buff[end] = all->str[end];
-			end++;
-		}
-		all->buff[end] = '\0';
-		all->str[0] = '\0';
-		return (1);
-	}
-	end = read(fd, all->buff, BUFFER_SIZE);
-	all->buff[end] = '\0';
-	return (end);
-}
-
 int		gnl_read(int fd, t_all *all, char **line)
 {
-	int	i;
 	int	end;
+	int	i;
+	char	*tmp;
 
 	i = 0;
-	*line = ft_strdup("");
-	while ((end = checkstr(fd, all)) != -1)
+	tmp = strndup("", 1);
+	while ((end = read(fd, all->buff, BUFFER_SIZE)) > 0)
 	{
-		if (all->buff[0] == '\0' && all->str[0] == '\0')
-			return (0);
-		if ((i = ft_strrchr(all->buff, '\n')) >= 0)
-		{
-			*line = ft_strnjoin(*line, all->buff, i);
-			filling_buff(all, i);
-			return (1);
-		}
-		*line = ft_strnjoin(*line, all->buff, ft_strlen(all->buff));
+		all->buff[end] = 0;
+		tmp = ft_strnjoin(tmp, all->buff, ft_strlen(all->buff));
+		if ((i = ft_strrchr(tmp, '\n')) >= 0)
+			break;
 	}
-	return (-1);
+	if (end == 0 && !all->str)
+		return (0);
+	*line = ft_strndup(tmp, i + 1);
+	all->str = ft_strndup(tmp + i + 1, ft_strlen(tmp));
+	return (1);
 }
 
 int		get_next_line(int fd, char **line)
@@ -76,3 +42,4 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	return (gnl_read(fd, &all, &(*line)));
 }
+

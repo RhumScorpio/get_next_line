@@ -6,7 +6,7 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 16:15:14 by clesaffr          #+#    #+#             */
-/*   Updated: 2020/08/25 11:56:48 by marvin           ###   ########.fr       */
+/*   Updated: 2020/08/29 20:43:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef	struct	s_all
 int				get_next_line(int fd, char **line);
 int				ft_strlen(const char *str);
 int				ft_strrchr(const char *s, int c);
-char			*ft_strndup(const char *src, int n);
-char			*ft_strnjoin(const char *s1, const char *s2, int n);
+char			*ft_strndup(char *src, int n);
+char *ft_strfjoin1(char *s1, char *s2);
+char *ft_strdup(const char *s1);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-static int		line_copy(char **line, t_all *a)
+static int	line_copy(char **line, t_all *a)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ static int		line_copy(char **line, t_all *a)
 	return (i);
 }
 
-static int		ft_strlen(const char *str)
+static int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ static int		ft_strlen(const char *str)
 	return (i);
 }
 
-static int		ft_strchr(const char *s, int c)
+static int	ft_strchr(const char *s, int c)
 {
 	int	i;
 
@@ -49,10 +49,10 @@ static int		ft_strchr(const char *s, int c)
 	return (-1);
 }
 
-static	int		gnl_read(int fd, t_all *a)
+static int	gnl_read(int fd, t_all *a)
 {
-	int	end;
-	int	i;
+	int		end;
+	int		i;
 	char	*tmp;
 	char	buff[BUFFER_SIZE + 1];
 
@@ -64,24 +64,24 @@ static	int		gnl_read(int fd, t_all *a)
 		a->str = ft_strjoin(a->str, buff);
 		free(tmp);
 		if ((i = ft_strchr(a->str, '\n')) >= 1)
-			break;
+			break ;
 	}
 	return (end);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	static t_all	all;
-	int		yn;
-	int		end;
-	char	*tmp;
-	char	test[BUFFER_SIZE + 1];
+	int				yn;
+	int				end;
+	char			*tmp;
+	char			test[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, test, 0) == -1)
 		return (-1);
 	yn = gnl_read(fd, &all);
 	if (yn == 0 && !all.str)
-		return (0);	
+		return (0);
 	end = 1 + line_copy(line, &all);
 	tmp = all.str;
 	if (tmp[end] != '\0')

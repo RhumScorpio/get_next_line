@@ -12,7 +12,6 @@
 
 #include "get_next_line.h"
 
-
 char	*ft_strdup(const char *s1)
 {
 	size_t	i;

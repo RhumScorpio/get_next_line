@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/21 00:04:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/09/28 15:56:42 by marvin           ###   ########.fr       */
+/*   Created: 2020/09/28 15:58:52 by marvin            #+#    #+#             */
+/*   Updated: 2020/09/30 10:59:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-
-typedef	struct	s_all
+int	main(int ac, char **av)
 {
-	char *str;
-}				t_all;
+	int fd;
+	int gnl;
+	char *line = NULL;
 
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin(char *s1, char *s2);
-char			*ft_strdup(const char *s1);
+	if (ac == 0)
+		return (0);
 
-#endif
+	if(!(fd =  open(av[1], O_RDONLY)))
+	{
+		printf("Error in open\n");
+		return (0);
+	}
+	while ((gnl = get_next_line(fd, &line)) > 0)
+	{
+		printf("NORM ! %s", line);
+		free(line);
+	}
+	printf("LAST ! %s", line);
+	printf("gnl = %d", gnl);
+	return (0);
+
+}

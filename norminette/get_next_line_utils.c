@@ -6,11 +6,23 @@
 /*   By: clesaffr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 16:15:10 by clesaffr          #+#    #+#             */
-/*   Updated: 2020/09/21 13:24:45 by marvin           ###   ########.fr       */
+/*   Updated: 2020/09/28 16:18:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
 char	*ft_strdup(const char *s1)
 {
@@ -77,23 +89,4 @@ char	*ft_strjoin(char *s1, char *s2)
 		ret = ft_strcat(ret, s2);
 	}
 	return (ret);
-}
-
-char	*ft_strndup(char *src, int n)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	if (!src)
-		return (NULL);
-	if (!(tmp = malloc(sizeof(char) * (n + 1))))
-		return (0);
-	while (*(src + i) != '\0' && i < n)
-	{
-		tmp[i] = src[i];
-		++i;
-	}
-	tmp[i] = '\0';
-	return (tmp);
 }
